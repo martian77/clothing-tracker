@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Main module file for clothing items module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function clothing_menu() {
+  $items['clothing/autocomplete'] = array(
+    'title' => 'Autocomplete for clothing',
+    'page callback' => '_clothing_autocomplete',
+    'access arguments' => array('use autocomplete'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function clothing_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['#node_edit_form'])){
+    $form['clothing_use']['#autocomplete_path'] = 'clothing/autocomplete';
+    //$form['#after_build'][] = '_clothing_after_build';
+  }
+}
+
+/**
+ * This will generate autocomplete based on the previous
+ * @param $arg1
+ */
+function _clothing_autocomplete($arg1) {
+  return;
+}
+
+function _clothing_after_build($form, &$form_state) {
+  $form['clothing_use']['#autocomplete_path'] = 'clothing/autocomplete';
+  return $form;
+}
