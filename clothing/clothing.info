@@ -1,5 +1,0 @@
-name = Clothing
-description = Module for tracking wardrobe items for Project 333
-package = Clothing Module
-core = 7.x
-files[] = clothing.module
