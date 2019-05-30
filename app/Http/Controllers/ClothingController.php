@@ -19,10 +19,13 @@ class ClothingController extends Controller
      */
     public function index()
     {
-        print_r( 'This will list clothing. ' );
         $user = Auth::user();
-        $clothing = $user->clothing();
-        print_r( 'Particularly for user ' . $user->name );
+        $clothing = $user->clothing()->paginate(10);
+        $data = [
+            'user' => $user,
+            'clothing' => $clothing,
+        ];
+        return view('clothing.index', $data);
     }
 
     /**
@@ -62,7 +65,11 @@ class ClothingController extends Controller
      */
     public function show(Clothing $clothing)
     {
-        //
+        $data = [
+            'user' => Auth::user(),
+            'clothing' => $clothing,
+        ];
+        return view('clothing.show', $data);
     }
 
     /**
@@ -73,7 +80,10 @@ class ClothingController extends Controller
      */
     public function edit(Clothing $clothing)
     {
-        //
+        $data = [
+            'clothing' => $clothing,
+        ];
+        return view('clothing.edit', $data);
     }
 
     /**
@@ -85,7 +95,12 @@ class ClothingController extends Controller
      */
     public function update(Request $request, Clothing $clothing)
     {
-        //
+        $clothing->name = $request->name;
+        $clothing->description = $request->description;
+        $clothing->arrived = $request->arrived;
+        $clothing->retired = $request->retired;
+
+        $clothing->save();
     }
 
     /**
