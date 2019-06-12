@@ -19,6 +19,8 @@ Route::resources([
     'clothing' => 'ClothingController',
 ]);
 
+Route::get('calendar/{year?}/{month?}', 'DayController@index')->where(['year' => '[0-9]{4}', 'month' => '^0?[1-9][012]?$'])->name('calendar');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
